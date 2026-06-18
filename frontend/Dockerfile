@@ -3,7 +3,7 @@ WORKDIR /app
 
 # Install deps
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
 # Development stage (default for docker-compose)
 FROM base AS dev

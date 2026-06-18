@@ -66,6 +66,15 @@ class Settings(BaseSettings):
     payment_plan_auto_activate: bool = False
     budget_guard_threshold_pct: float = 110.0
 
+    # ── OpenAI ────────────────────────────────────────────────────────────────
+    # Used by LangGraph agents (Reconciliation, Financial Intelligence, Reporting)
+    openai_api_key: str = ""
+    openai_model: str = "gpt-4o"
+
+    @property
+    def llm_enabled(self) -> bool:
+        return bool(self.openai_api_key) and not self.openai_api_key.startswith("sk-YOUR")
+
     # ── Seed ─────────────────────────────────────────────────────────────────
     load_synthetic_data: bool = True
 

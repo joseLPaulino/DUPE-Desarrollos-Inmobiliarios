@@ -13,7 +13,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./infra/db/init:/docker-entrypoint-initdb.d   # SQL init scripts (optional)
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dupe}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dupe} -d ${POSTGRES_DB:-dupe_platform}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -32,7 +32,7 @@ services:
     volumes:
       - ./src:/app/src                     # hot-reload in dev
     command: >
-      uvicorn dupe_platform.adapters.inbound.api.main:app
+      uv run uvicorn dupe_platform.adapters.inbound.api.main:app
       --host 0.0.0.0 --port 8000 --reload
 
   # ── React Frontend ──────────────────────────────────────────────────────────

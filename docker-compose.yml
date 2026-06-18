@@ -1,46 +1,40 @@
 version: "3.9"
 
+# All connection strings and secrets live in .env (see .env.example).
+# Copy .env.example → .env before running: cp .env.example .env
+
 services:
+
+  # ── PostgreSQL ──────────────────────────────────────────────────────────────
   db:
     image: postgres:16-alpine
-    environment:
-      POSTGRES_USER: dupe
-      POSTGRES_PASSWORD: dupe
-      POSTGRES_DB: dupe_platform
+    env_file: .env                         # reads POSTGRES_USER / PASSWORD / DB from .env
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U dupe"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dupe}"]
       interval: 5s
       timeout: 5s
       retries: 5
 
+  # ── FastAPI Backend ─────────────────────────────────────────────────────────
   backend:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
-    environment:
-      DATABASE_URL: postgresql+asyncpg://dupe:dupe@db:5432/dupe_platform
-      APP_ENV: development
-      DEBUG: "true"
-      LOAD_SYNTHETIC_DATA: "true"
-      PAYMENT_PLAN_AUTO_ACTIVATE: "false"
-      # [BLOCKED: A-WA] Real credentials needed
-      WHATSAPP_ACCESS_TOKEN: SYNTHETIC_TOKEN
-      WHATSAPP_PHONE_NUMBER_ID: SYNTHETIC_PHONE_ID
-      # [BLOCKED: A-EMAIL] Real credentials needed
-      SENDGRID_API_KEY: SYNTHETIC_SENDGRID_KEY
+    env_file: .env                         # all Settings fields loaded from .env
     depends_on:
       db:
         condition: service_healthy
     volumes:
-      - ./src:/app/src   # hot-reload in dev
+      - ./src:/app/src                     # hot-reload in dev
     command: uvicorn dupe_platform.adapters.inbound.api.main:app --host 0.0.0.0 --port 8000 --reload
 
+  # ── React Frontend ──────────────────────────────────────────────────────────
   frontend:
     build:
       context: ./frontend
@@ -53,7 +47,7 @@ services:
     depends_on:
       - backend
     volumes:
-      - ./frontend/src:/app/src   # hot-reload in dev
+      - ./frontend/src:/app/src            # hot-reload in dev
 
 volumes:
   postgres_data:

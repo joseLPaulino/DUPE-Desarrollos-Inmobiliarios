@@ -10,7 +10,7 @@ class Base(DeclarativeBase):
 
 
 def build_engine(database_url: str | None = None):
-    url = database_url or get_settings().database_url
+    url = database_url or get_settings().effective_database_url
     return create_async_engine(url, echo=get_settings().debug, pool_pre_ping=True)
 
 

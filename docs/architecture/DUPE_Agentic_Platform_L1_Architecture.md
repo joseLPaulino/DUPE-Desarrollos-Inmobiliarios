@@ -71,6 +71,24 @@ The following assumptions resolve ambiguous answers from the requirements questi
 
 ---
 
+## Platform Architecture Diagram
+
+The diagram below shows the full 7-layer hexagonal architecture of the DUPE Agentic Business Platform, from the React frontend down to external services. Each layer communicates only through its adjacent layer — the domain and agentic core has no direct dependency on any framework or database.
+
+![DUPE Agentic Platform Architecture](./dupe_platform_architecture.svg)
+
+| Layer | Technology | Role |
+|---|---|---|
+| **Frontend** | React 18 · Vite · TailwindCSS · Recharts | 7 pages: Dashboard, Collections, Cash Flow, AI Predictions, Budget, Data Entry, Excel Import |
+| **Inbound Adapters** | FastAPI routers | 8 routers exposing REST endpoints; request validation via Pydantic |
+| **Application** | Use Cases (pure Python) | GetDashboard · ReconcileTransactions · CreatePaymentPlan · SendNotifications |
+| **Domain + Agents** | Python dataclasses + agent classes | Domain models, port interfaces, 5 specialist agents, rule store, audit log |
+| **Outbound Adapters** | SQLAlchemy async repos · messaging · banking | Implement domain ports; swappable without touching business logic |
+| **Infrastructure** | PostgreSQL 16 + pgvector · Docker Compose | 9 ORM tables, DI container (deps.py), LLM wrapper, seed data |
+| **External Services** | Meta WhatsApp · SendGrid · Banco Popular · Anthropic API | Wrapped behind adapter interfaces; none coupled to domain |
+
+---
+
 ## Three-Lane Architecture View
 
 ### Lane 1: Business Process Flow

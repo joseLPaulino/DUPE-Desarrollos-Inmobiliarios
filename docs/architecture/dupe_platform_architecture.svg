@@ -1,0 +1,283 @@
+<svg viewBox="0 0 900 720" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Inter,system-ui,sans-serif">
+  <title>DUPE Agentic Platform — Full Architecture</title>
+  <desc>Layered architecture showing Frontend, API Gateway, Application Layer, Domain, Agents, and Infrastructure</desc>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Background bands -->
+  <rect x="8" y="8" width="884" height="90" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+  <rect x="8" y="110" width="884" height="80" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+  <rect x="8" y="202" width="884" height="80" rx="10" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.2"/>
+  <rect x="8" y="294" width="884" height="156" rx="10" fill="#fff7ed" stroke="#fdba74" stroke-width="1.2"/>
+  <rect x="8" y="462" width="884" height="80" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+  <rect x="8" y="554" width="884" height="80" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+  <rect x="8" y="646" width="884" height="62" rx="10" fill="#fef9c3" stroke="#fde047" stroke-width="1.2"/>
+
+  <!-- Layer labels -->
+  <text x="20" y="28" font-size="9.5" font-weight="700" fill="#16a34a" letter-spacing="0.8">FRONTEND  ·  React 18 + Vite + TailwindCSS + Recharts</text>
+  <text x="20" y="126" font-size="9.5" font-weight="700" fill="#2563eb" letter-spacing="0.8">INBOUND ADAPTERS  ·  FastAPI Routers</text>
+  <text x="20" y="218" font-size="9.5" font-weight="700" fill="#7c3aed" letter-spacing="0.8">APPLICATION  ·  Use Cases</text>
+  <text x="20" y="310" font-size="9.5" font-weight="700" fill="#ea580c" letter-spacing="0.8">DOMAIN  +  AGENTIC LAYER</text>
+  <text x="20" y="478" font-size="9.5" font-weight="700" fill="#16a34a" letter-spacing="0.8">OUTBOUND ADAPTERS  ·  Repositories + Messaging + Banking</text>
+  <text x="20" y="570" font-size="9.5" font-weight="700" fill="#475569" letter-spacing="0.8">INFRASTRUCTURE  ·  PostgreSQL + pgvector + Config + LLM</text>
+  <text x="20" y="662" font-size="9.5" font-weight="700" fill="#a16207" letter-spacing="0.8">EXTERNAL SERVICES</text>
+
+  <!-- LAYER 1 — FRONTEND -->
+  <rect x="28" y="36" width="108" height="48" rx="7" fill="#dcfce7" stroke="#4ade80" stroke-width="1"/>
+  <text x="82" y="56" text-anchor="middle" font-size="9" font-weight="700" fill="#166534">Dashboard</text>
+  <text x="82" y="68" text-anchor="middle" font-size="7.5" fill="#166534">KPIs · Sparklines · Donut</text>
+  <text x="82" y="78" text-anchor="middle" font-size="7.5" fill="#166534">Budget bars</text>
+
+  <rect x="148" y="36" width="108" height="48" rx="7" fill="#dcfce7" stroke="#4ade80" stroke-width="1"/>
+  <text x="202" y="56" text-anchor="middle" font-size="9" font-weight="700" fill="#166534">Collections</text>
+  <text x="202" y="68" text-anchor="middle" font-size="7.5" fill="#166534">Plans · Overdue queue</text>
+  <text x="202" y="78" text-anchor="middle" font-size="7.5" fill="#166534">Notifications dispatch</text>
+
+  <rect x="268" y="36" width="108" height="48" rx="7" fill="#dcfce7" stroke="#4ade80" stroke-width="1"/>
+  <text x="322" y="56" text-anchor="middle" font-size="9" font-weight="700" fill="#166534">Cash Flow</text>
+  <text x="322" y="68" text-anchor="middle" font-size="7.5" fill="#166534">Area · Cumulative</text>
+  <text x="322" y="78" text-anchor="middle" font-size="7.5" fill="#166534">Stacked breakdown</text>
+
+  <rect x="388" y="36" width="108" height="48" rx="7" fill="#dcfce7" stroke="#4ade80" stroke-width="1"/>
+  <text x="442" y="56" text-anchor="middle" font-size="9" font-weight="700" fill="#166534">AI Predictions</text>
+  <text x="442" y="68" text-anchor="middle" font-size="7.5" fill="#166534">Forecast · Risk score</text>
+  <text x="442" y="78" text-anchor="middle" font-size="7.5" fill="#166534">Completion date</text>
+
+  <rect x="508" y="36" width="108" height="48" rx="7" fill="#dcfce7" stroke="#4ade80" stroke-width="1"/>
+  <text x="562" y="56" text-anchor="middle" font-size="9" font-weight="700" fill="#166534">Budget Overview</text>
+  <text x="562" y="68" text-anchor="middle" font-size="7.5" fill="#166534">Partidas · Execution %</text>
+  <text x="562" y="78" text-anchor="middle" font-size="7.5" fill="#166534">Reconciliation view</text>
+
+  <rect x="628" y="36" width="108" height="48" rx="7" fill="#dcfce7" stroke="#4ade80" stroke-width="1"/>
+  <text x="682" y="56" text-anchor="middle" font-size="9" font-weight="700" fill="#166534">Data Entry</text>
+  <text x="682" y="68" text-anchor="middle" font-size="7.5" fill="#166534">Transactions · Payments</text>
+  <text x="682" y="78" text-anchor="middle" font-size="7.5" fill="#166534">Budget execution</text>
+
+  <rect x="748" y="36" width="118" height="48" rx="7" fill="#dcfce7" stroke="#4ade80" stroke-width="1"/>
+  <text x="807" y="56" text-anchor="middle" font-size="9" font-weight="700" fill="#166534">Excel Import</text>
+  <text x="807" y="68" text-anchor="middle" font-size="7.5" fill="#166534">Drag-drop .xlsx</text>
+  <text x="807" y="78" text-anchor="middle" font-size="7.5" fill="#166534">Preview · Replace</text>
+
+  <!-- LAYER 2 — INBOUND ADAPTERS -->
+  <rect x="28" y="124" width="98" height="48" rx="6" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="77" y="143" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1e40af">projects</text>
+  <text x="77" y="155" text-anchor="middle" font-size="7" fill="#1e40af">GET / units</text>
+  <text x="77" y="165" text-anchor="middle" font-size="7" fill="#1e40af">GET {id}</text>
+
+  <rect x="138" y="124" width="98" height="48" rx="6" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="187" y="143" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1e40af">dashboard</text>
+  <text x="187" y="155" text-anchor="middle" font-size="7" fill="#1e40af">GET {project_id}</text>
+  <text x="187" y="165" text-anchor="middle" font-size="7" fill="#1e40af">KPIs + partidas</text>
+
+  <rect x="248" y="124" width="98" height="48" rx="6" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="297" y="143" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1e40af">payment-plans</text>
+  <text x="297" y="155" text-anchor="middle" font-size="7" fill="#1e40af">POST / approve</text>
+  <text x="297" y="165" text-anchor="middle" font-size="7" fill="#1e40af">PATCH installment/pay</text>
+
+  <rect x="358" y="124" width="98" height="48" rx="6" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="407" y="143" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1e40af">reconciliation</text>
+  <text x="407" y="155" text-anchor="middle" font-size="7" fill="#1e40af">POST upload · tx</text>
+  <text x="407" y="165" text-anchor="middle" font-size="7" fill="#1e40af">POST execution</text>
+
+  <rect x="468" y="124" width="98" height="48" rx="6" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="517" y="143" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1e40af">cash-flow</text>
+  <text x="517" y="155" text-anchor="middle" font-size="7" fill="#1e40af">GET {project_id}</text>
+  <text x="517" y="165" text-anchor="middle" font-size="7" fill="#1e40af">POST import</text>
+
+  <rect x="578" y="124" width="98" height="48" rx="6" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="627" y="143" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1e40af">predictions</text>
+  <text x="627" y="155" text-anchor="middle" font-size="7" fill="#1e40af">GET {project_id}</text>
+  <text x="627" y="165" text-anchor="middle" font-size="7" fill="#1e40af">OLS + S-curve</text>
+
+  <rect x="688" y="124" width="98" height="48" rx="6" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="737" y="143" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1e40af">notifications</text>
+  <text x="737" y="155" text-anchor="middle" font-size="7" fill="#1e40af">POST dispatch</text>
+  <text x="737" y="165" text-anchor="middle" font-size="7" fill="#1e40af">dedup check</text>
+
+  <rect x="798" y="124" width="68" height="48" rx="6" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="832" y="143" text-anchor="middle" font-size="8.5" font-weight="700" fill="#1e40af">clients</text>
+  <text x="832" y="158" text-anchor="middle" font-size="7" fill="#1e40af">GET / POST</text>
+
+  <!-- LAYER 3 — USE CASES -->
+  <rect x="28" y="216" width="188" height="48" rx="6" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/>
+  <text x="122" y="236" text-anchor="middle" font-size="8.5" font-weight="700" fill="#5b21b6">GetDashboardUseCase</text>
+  <text x="122" y="248" text-anchor="middle" font-size="7" fill="#5b21b6">Aggregates project + budget + plans</text>
+  <text x="122" y="258" text-anchor="middle" font-size="7" fill="#5b21b6">Computes KPIs, execution %, alerts</text>
+
+  <rect x="228" y="216" width="188" height="48" rx="6" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/>
+  <text x="322" y="236" text-anchor="middle" font-size="8.5" font-weight="700" fill="#5b21b6">ReconcileTransactionsUseCase</text>
+  <text x="322" y="248" text-anchor="middle" font-size="7" fill="#5b21b6">Bank CSV parse → rule match</text>
+  <text x="322" y="258" text-anchor="middle" font-size="7" fill="#5b21b6">Auto-match + officer queue</text>
+
+  <rect x="428" y="216" width="188" height="48" rx="6" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/>
+  <text x="522" y="236" text-anchor="middle" font-size="8.5" font-weight="700" fill="#5b21b6">CreatePaymentPlanUseCase</text>
+  <text x="522" y="248" text-anchor="middle" font-size="7" fill="#5b21b6">Generates installment schedule</text>
+  <text x="522" y="258" text-anchor="middle" font-size="7" fill="#5b21b6">8–16 cuotas · auto-activate flag</text>
+
+  <rect x="628" y="216" width="240" height="48" rx="6" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/>
+  <text x="748" y="236" text-anchor="middle" font-size="8.5" font-weight="700" fill="#5b21b6">SendNotificationsUseCase</text>
+  <text x="748" y="248" text-anchor="middle" font-size="7" fill="#5b21b6">Evaluates schedule · dedup check</text>
+  <text x="748" y="258" text-anchor="middle" font-size="7" fill="#5b21b6">Dispatches WhatsApp + email</text>
+
+  <!-- LAYER 4 — DOMAIN -->
+  <rect x="28" y="308" width="340" height="130" rx="7" fill="#fff7ed" stroke="#fb923c" stroke-width="1"/>
+  <text x="198" y="325" text-anchor="middle" font-size="9" font-weight="700" fill="#9a3412">DOMAIN MODELS  (pure Python dataclasses)</text>
+
+  <rect x="38" y="332" width="70" height="36" rx="5" fill="#fed7aa" stroke="#fb923c" stroke-width="0.8"/>
+  <text x="73" y="347" text-anchor="middle" font-size="7.5" font-weight="700" fill="#7c2d12">Project</text>
+  <text x="73" y="359" text-anchor="middle" font-size="6.5" fill="#7c2d12">Unit · Budget</text>
+
+  <rect x="118" y="332" width="70" height="36" rx="5" fill="#fed7aa" stroke="#fb923c" stroke-width="0.8"/>
+  <text x="153" y="347" text-anchor="middle" font-size="7.5" font-weight="700" fill="#7c2d12">PaymentPlan</text>
+  <text x="153" y="359" text-anchor="middle" font-size="6.5" fill="#7c2d12">Installment</text>
+
+  <rect x="198" y="332" width="70" height="36" rx="5" fill="#fed7aa" stroke="#fb923c" stroke-width="0.8"/>
+  <text x="233" y="347" text-anchor="middle" font-size="7.5" font-weight="700" fill="#7c2d12">Transaction</text>
+  <text x="233" y="359" text-anchor="middle" font-size="6.5" fill="#7c2d12">ReconMatch</text>
+
+  <rect x="278" y="332" width="80" height="36" rx="5" fill="#fed7aa" stroke="#fb923c" stroke-width="0.8"/>
+  <text x="318" y="347" text-anchor="middle" font-size="7.5" font-weight="700" fill="#7c2d12">CashFlowMonth</text>
+  <text x="318" y="359" text-anchor="middle" font-size="6.5" fill="#7c2d12">61 months · actual/proj</text>
+
+  <rect x="38" y="376" width="320" height="52" rx="5" fill="#ffedd5" stroke="#fb923c" stroke-width="0.8"/>
+  <text x="198" y="392" text-anchor="middle" font-size="8" font-weight="700" fill="#9a3412">PORTS  (interfaces)</text>
+  <text x="198" y="406" text-anchor="middle" font-size="7" fill="#9a3412">ProjectRepo · BudgetRepo · PlanRepo · TransactionRepo · NotificationRepo</text>
+  <text x="198" y="418" text-anchor="middle" font-size="7" fill="#9a3412">MessagingService · BankStatementParser</text>
+
+  <!-- LAYER 4 — AGENTS -->
+  <rect x="380" y="308" width="510" height="130" rx="7" fill="#fff7ed" stroke="#fb923c" stroke-width="1"/>
+  <text x="635" y="325" text-anchor="middle" font-size="9" font-weight="700" fill="#9a3412">AGENTIC LAYER</text>
+
+  <rect x="390" y="332" width="90" height="97" rx="5" fill="#fed7aa" stroke="#fb923c" stroke-width="0.8"/>
+  <text x="435" y="349" text-anchor="middle" font-size="7.5" font-weight="700" fill="#7c2d12">Orchestrator</text>
+  <text x="435" y="361" text-anchor="middle" font-size="6.5" fill="#7c2d12">State machine</text>
+  <text x="435" y="372" text-anchor="middle" font-size="6.5" fill="#7c2d12">Routes all</text>
+  <text x="435" y="383" text-anchor="middle" font-size="6.5" fill="#7c2d12">agent calls</text>
+
+  <rect x="492" y="332" width="90" height="45" rx="5" fill="#fed7aa" stroke="#fb923c" stroke-width="0.8"/>
+  <text x="537" y="349" text-anchor="middle" font-size="7.5" font-weight="700" fill="#7c2d12">Reconciliation</text>
+  <text x="537" y="361" text-anchor="middle" font-size="6.5" fill="#7c2d12">Match + rule store</text>
+  <text x="537" y="372" text-anchor="middle" font-size="6.5" fill="#7c2d12">OLS predictions</text>
+
+  <rect x="492" y="384" width="90" height="45" rx="5" fill="#fed7aa" stroke="#fb923c" stroke-width="0.8"/>
+  <text x="537" y="401" text-anchor="middle" font-size="7.5" font-weight="700" fill="#7c2d12">Collections</text>
+  <text x="537" y="413" text-anchor="middle" font-size="6.5" fill="#7c2d12">Notification</text>
+  <text x="537" y="424" text-anchor="middle" font-size="6.5" fill="#7c2d12">dispatch agent</text>
+
+  <rect x="594" y="332" width="90" height="45" rx="5" fill="#fed7aa" stroke="#fb923c" stroke-width="0.8"/>
+  <text x="639" y="349" text-anchor="middle" font-size="7.5" font-weight="700" fill="#7c2d12">Financial Intel</text>
+  <text x="639" y="361" text-anchor="middle" font-size="6.5" fill="#7c2d12">Budget monitor</text>
+  <text x="639" y="372" text-anchor="middle" font-size="6.5" fill="#7c2d12">Traffic alerts</text>
+
+  <rect x="594" y="384" width="90" height="45" rx="5" fill="#fed7aa" stroke="#fb923c" stroke-width="0.8"/>
+  <text x="639" y="401" text-anchor="middle" font-size="7.5" font-weight="700" fill="#7c2d12">Escalation</text>
+  <text x="639" y="413" text-anchor="middle" font-size="6.5" fill="#7c2d12">Router</text>
+  <text x="639" y="424" text-anchor="middle" font-size="6.5" fill="#7c2d12">Day +1/+6/+16</text>
+
+  <rect x="696" y="332" width="90" height="45" rx="5" fill="#fed7aa" stroke="#fb923c" stroke-width="0.8"/>
+  <text x="741" y="349" text-anchor="middle" font-size="7.5" font-weight="700" fill="#7c2d12">Reporting</text>
+  <text x="741" y="361" text-anchor="middle" font-size="6.5" fill="#7c2d12">Weekly PDF</text>
+  <text x="741" y="372" text-anchor="middle" font-size="6.5" fill="#7c2d12">On-demand reports</text>
+
+  <rect x="696" y="384" width="90" height="45" rx="5" fill="#fed7aa" stroke="#fb923c" stroke-width="0.8"/>
+  <text x="741" y="401" text-anchor="middle" font-size="7.5" font-weight="700" fill="#7c2d12">Excel Parser</text>
+  <text x="741" y="413" text-anchor="middle" font-size="6.5" fill="#7c2d12">Social + Tourist</text>
+  <text x="741" y="424" text-anchor="middle" font-size="6.5" fill="#7c2d12">openpyxl</text>
+
+  <rect x="798" y="332" width="82" height="97" rx="5" fill="#fde68a" stroke="#f59e0b" stroke-width="0.8"/>
+  <text x="839" y="349" text-anchor="middle" font-size="7.5" font-weight="700" fill="#78350f">Rule Store</text>
+  <text x="839" y="361" text-anchor="middle" font-size="6.5" fill="#78350f">Officer decisions</text>
+  <text x="839" y="373" text-anchor="middle" font-size="6.5" fill="#78350f">persisted for</text>
+  <text x="839" y="385" text-anchor="middle" font-size="6.5" fill="#78350f">auto-match</text>
+  <text x="839" y="397" text-anchor="middle" font-size="6.5" fill="#78350f">+</text>
+  <text x="839" y="409" text-anchor="middle" font-size="6.5" fill="#78350f">Audit log</text>
+  <text x="839" y="421" text-anchor="middle" font-size="6.5" fill="#78350f">timestamp +</text>
+  <text x="839" y="433" text-anchor="middle" font-size="6.5" fill="#78350f">confidence</text>
+
+  <!-- LAYER 5 — OUTBOUND ADAPTERS -->
+  <rect x="28" y="476" width="148" height="48" rx="6" fill="#dcfce7" stroke="#4ade80" stroke-width="1"/>
+  <text x="102" y="495" text-anchor="middle" font-size="8.5" font-weight="700" fill="#166534">SQL Repositories</text>
+  <text x="102" y="507" text-anchor="middle" font-size="7" fill="#166534">Project · Budget · Plan</text>
+  <text x="102" y="517" text-anchor="middle" font-size="7" fill="#166534">Transaction · Notification</text>
+
+  <rect x="188" y="476" width="148" height="48" rx="6" fill="#dcfce7" stroke="#4ade80" stroke-width="1"/>
+  <text x="262" y="495" text-anchor="middle" font-size="8.5" font-weight="700" fill="#166534">Messaging Adapter</text>
+  <text x="262" y="507" text-anchor="middle" font-size="7" fill="#166534">SyntheticMessaging (now)</text>
+  <text x="262" y="517" text-anchor="middle" font-size="7" fill="#166534">→ WhatsApp / SendGrid</text>
+
+  <rect x="348" y="476" width="148" height="48" rx="6" fill="#dcfce7" stroke="#4ade80" stroke-width="1"/>
+  <text x="422" y="495" text-anchor="middle" font-size="8.5" font-weight="700" fill="#166534">Banking Adapter</text>
+  <text x="422" y="507" text-anchor="middle" font-size="7" fill="#166534">SyntheticParser (now)</text>
+  <text x="422" y="517" text-anchor="middle" font-size="7" fill="#166534">→ BancPopularParser</text>
+
+  <rect x="508" y="476" width="148" height="48" rx="6" fill="#dcfce7" stroke="#4ade80" stroke-width="1"/>
+  <text x="582" y="495" text-anchor="middle" font-size="8.5" font-weight="700" fill="#166534">Excel Parser</text>
+  <text x="582" y="507" text-anchor="middle" font-size="7" fill="#166534">social_cashflow (61 mo)</text>
+  <text x="582" y="517" text-anchor="middle" font-size="7" fill="#166534">tourist_cashflow (60 mo)</text>
+
+  <rect x="668" y="476" width="198" height="48" rx="6" fill="#dcfce7" stroke="#4ade80" stroke-width="1"/>
+  <text x="767" y="495" text-anchor="middle" font-size="8.5" font-weight="700" fill="#166534">Report / PDF / Email wrappers</text>
+  <text x="767" y="507" text-anchor="middle" font-size="7" fill="#166534">pdf_generator · excel_exporter</text>
+  <text x="767" y="517" text-anchor="middle" font-size="7" fill="#166534">email_wrapper · whatsapp_wrapper</text>
+
+  <!-- LAYER 6 — INFRASTRUCTURE -->
+  <rect x="28" y="568" width="178" height="48" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+  <text x="117" y="588" text-anchor="middle" font-size="8.5" font-weight="700" fill="#334155">PostgreSQL 16 + pgvector</text>
+  <text x="117" y="600" text-anchor="middle" font-size="7" fill="#475569">9 ORM tables · vector search ready</text>
+  <text x="117" y="610" text-anchor="middle" font-size="7" fill="#475569">SQLAlchemy async · Alembic</text>
+
+  <rect x="218" y="568" width="148" height="48" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+  <text x="292" y="588" text-anchor="middle" font-size="8.5" font-weight="700" fill="#334155">Config + Seed</text>
+  <text x="292" y="600" text-anchor="middle" font-size="7" fill="#475569">pydantic-settings · .env</text>
+  <text x="292" y="610" text-anchor="middle" font-size="7" fill="#475569">seed.py → 3 projects + CF</text>
+
+  <rect x="378" y="568" width="148" height="48" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+  <text x="452" y="588" text-anchor="middle" font-size="8.5" font-weight="700" fill="#334155">LLM Wrapper</text>
+  <text x="452" y="600" text-anchor="middle" font-size="7" fill="#475569">llm.py · Anthropic SDK</text>
+  <text x="452" y="610" text-anchor="middle" font-size="7" fill="#475569">agent insight strings</text>
+
+  <rect x="538" y="568" width="148" height="48" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+  <text x="612" y="588" text-anchor="middle" font-size="8.5" font-weight="700" fill="#334155">DI Container</text>
+  <text x="612" y="600" text-anchor="middle" font-size="7" fill="#475569">deps.py · FastAPI Depends</text>
+  <text x="612" y="610" text-anchor="middle" font-size="7" fill="#475569">wires ports to adapters</text>
+
+  <rect x="698" y="568" width="168" height="48" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+  <text x="782" y="588" text-anchor="middle" font-size="8.5" font-weight="700" fill="#334155">Docker Compose</text>
+  <text x="782" y="600" text-anchor="middle" font-size="7" fill="#475569">db · backend · frontend</text>
+  <text x="782" y="610" text-anchor="middle" font-size="7" fill="#475569">hot-reload volumes</text>
+
+  <!-- LAYER 7 — EXTERNAL -->
+  <rect x="28" y="660" width="148" height="38" rx="6" fill="#fef9c3" stroke="#fde047" stroke-width="1"/>
+  <text x="102" y="677" text-anchor="middle" font-size="8.5" font-weight="700" fill="#713f12">Meta WhatsApp API</text>
+  <text x="102" y="689" text-anchor="middle" font-size="7" fill="#713f12">Business acct — critical path</text>
+
+  <rect x="188" y="660" width="148" height="38" rx="6" fill="#fef9c3" stroke="#fde047" stroke-width="1"/>
+  <text x="262" y="677" text-anchor="middle" font-size="8.5" font-weight="700" fill="#713f12">SendGrid Email</text>
+  <text x="262" y="689" text-anchor="middle" font-size="7" fill="#713f12">cobros@dupedesa.com</text>
+
+  <rect x="348" y="660" width="148" height="38" rx="6" fill="#fef9c3" stroke="#fde047" stroke-width="1"/>
+  <text x="422" y="677" text-anchor="middle" font-size="8.5" font-weight="700" fill="#713f12">Banco Popular CSV</text>
+  <text x="422" y="689" text-anchor="middle" font-size="7" fill="#713f12">Manual netbanking export</text>
+
+  <rect x="508" y="660" width="148" height="38" rx="6" fill="#fef9c3" stroke="#fde047" stroke-width="1"/>
+  <text x="582" y="677" text-anchor="middle" font-size="8.5" font-weight="700" fill="#713f12">Anthropic Claude API</text>
+  <text x="582" y="689" text-anchor="middle" font-size="7" fill="#713f12">AI insight generation</text>
+
+  <rect x="668" y="660" width="198" height="38" rx="6" fill="#fef9c3" stroke="#fde047" stroke-width="1"/>
+  <text x="767" y="677" text-anchor="middle" font-size="8.5" font-weight="700" fill="#713f12">Excel DUPE Financial Model</text>
+  <text x="767" y="689" text-anchor="middle" font-size="7" fill="#713f12">4-sheet .xlsx → openpyxl parse</text>
+
+  <!-- Flow arrows -->
+  <line x1="450" y1="100" x2="450" y2="112" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="465" y="109" font-size="7" fill="#94a3b8">axios / @tanstack/query</text>
+  <line x1="450" y1="192" x2="450" y2="204" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="450" y1="284" x2="450" y2="296" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="450" y1="458" x2="450" y2="470" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="180" y1="542" x2="180" y2="556" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="450" y1="542" x2="450" y2="556" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="350" y1="636" x2="350" y2="648" stroke="#fde047" stroke-width="1.2" stroke-dasharray="4 2" marker-end="url(#arr)"/>
+</svg>

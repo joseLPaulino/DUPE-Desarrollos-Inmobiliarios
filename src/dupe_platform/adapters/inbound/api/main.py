@@ -6,7 +6,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from dupe_platform.adapters.inbound.api.routers import (
-    projects, clients, payment_plans, dashboard, reconciliation, notifications
+    projects, clients, payment_plans, dashboard, reconciliation, notifications,
+    cashflow, predictions, accounting, goals, comercial, gestion, postventa, calendar,
+    intelligence, plan_activity, admin, analytics,
 )
 from dupe_platform.infrastructure.config import get_settings
 
@@ -62,6 +64,18 @@ def create_app() -> FastAPI:
     app.include_router(dashboard.router,      prefix="/api/v1/dashboard",      tags=["Dashboard"])
     app.include_router(reconciliation.router, prefix="/api/v1/reconciliation", tags=["Finance"])
     app.include_router(notifications.router,  prefix="/api/v1/notifications",  tags=["Notifications"])
+    app.include_router(cashflow.router,       prefix="/api/v1/cash-flow",      tags=["CashFlow"])
+    app.include_router(predictions.router,    prefix="/api/v1/predictions",    tags=["Predictions"])
+    app.include_router(accounting.router,     prefix="/api/v1/accounting",     tags=["Accounting"])
+    app.include_router(goals.router,          prefix="/api/v1/goals",          tags=["Goals"])
+    app.include_router(comercial.router,      prefix="/api/v1/comercial",      tags=["Comercial"])
+    app.include_router(gestion.router,        prefix="/api/v1/gestion",        tags=["Gestion"])
+    app.include_router(postventa.router,      prefix="/api/v1/postventa",      tags=["Postventa"])
+    app.include_router(calendar.router,       prefix="/api/v1/calendar",       tags=["Calendar"])
+    app.include_router(intelligence.router,   prefix="/api/v1/intelligence",   tags=["Intelligence"])
+    app.include_router(plan_activity.router,  prefix="/api/v1/collections",    tags=["Provenance"])
+    app.include_router(admin.router,          prefix="/api/v1/admin",           tags=["Admin"])
+    app.include_router(analytics.router,      prefix="/api/v1/analytics",       tags=["Analytics"])
 
     @app.get("/health")
     async def health():

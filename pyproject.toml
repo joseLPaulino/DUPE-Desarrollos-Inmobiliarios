@@ -24,6 +24,10 @@ dependencies = [
     "langgraph>=0.2",
     "langchain-openai>=0.2",
 
+    # Financial calculations
+    "numpy-financial==1.0.0",
+    "numpy>=1.26",
+
     # Reports
     "reportlab==4.2.5",
     "openpyxl==3.1.5",

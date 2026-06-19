@@ -411,14 +411,137 @@ function addHeader(slide, title, sub, darkBg) {
 })();
 
 // ══════════════════════════════════════════════════════════════════════════════
-// SLIDE 4 — HUB-AND-SPOKE MULTI-AGENT MODEL
+// SLIDE 4 — PLATFORM ARCHITECTURE (7-LAYER)
+// ══════════════════════════════════════════════════════════════════════════════
+(function slide04_arch() {
+  const s = pres.addSlide();
+  s.background = { color: C.bg };
+  addBranding(s, true);
+  addHeader(s, 'Platform Architecture', '7-layer hexagonal design — domain isolated from frameworks and databases', true);
+  addFooter(s, 4, true);
+
+  const archSvg = `<svg viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif">
+    <!-- Band backgrounds -->
+    <rect x="4" y="4"   width="892" height="52" rx="7" fill="#0a2010" stroke="#4ade80" stroke-width="1.2"/>
+    <rect x="4" y="62"  width="892" height="50" rx="7" fill="#0a1530" stroke="#60a5fa" stroke-width="1.2"/>
+    <rect x="4" y="118" width="892" height="50" rx="7" fill="#1a0a35" stroke="#a78bfa" stroke-width="1.2"/>
+    <rect x="4" y="174" width="892" height="96" rx="7" fill="#1a0c06" stroke="#fb923c" stroke-width="1.2"/>
+    <rect x="4" y="276" width="892" height="50" rx="7" fill="#0a2010" stroke="#4ade80" stroke-width="1.2"/>
+    <rect x="4" y="332" width="892" height="50" rx="7" fill="#111827" stroke="#94a3b8" stroke-width="1.2"/>
+    <rect x="4" y="388" width="892" height="28" rx="7" fill="#1c1500" stroke="#fde047" stroke-width="1.2"/>
+
+    <!-- Layer labels -->
+    <text x="14" y="19"  font-size="8" font-weight="700" fill="#4ade80" letter-spacing="0.6">FRONTEND · React 18 · Vite · TailwindCSS · Recharts · @tanstack/query</text>
+    <text x="14" y="77"  font-size="8" font-weight="700" fill="#60a5fa" letter-spacing="0.6">INBOUND ADAPTERS · FastAPI Routers (8 routers · Pydantic validation)</text>
+    <text x="14" y="133" font-size="8" font-weight="700" fill="#a78bfa" letter-spacing="0.6">APPLICATION · Use Cases (pure Python · no framework imports)</text>
+    <text x="14" y="189" font-size="8" font-weight="700" fill="#fb923c" letter-spacing="0.6">DOMAIN + AGENTIC LAYER</text>
+    <text x="14" y="291" font-size="8" font-weight="700" fill="#4ade80" letter-spacing="0.6">OUTBOUND ADAPTERS · Repositories · Messaging · Banking · Excel</text>
+    <text x="14" y="347" font-size="8" font-weight="700" fill="#94a3b8" letter-spacing="0.6">INFRASTRUCTURE · PostgreSQL 16 + pgvector · Docker Compose · DI Container · LLM</text>
+    <text x="14" y="400" font-size="8" font-weight="700" fill="#fde047" letter-spacing="0.6">EXTERNAL · Meta WhatsApp · SendGrid · Banco Popular CSV · Anthropic API · Excel .xlsx</text>
+
+    <!-- Frontend boxes -->
+    ${[
+      ['Dashboard','KPIs · Donut · Sparkline',26],
+      ['Collections','Plans · Overdue queue',155],
+      ['Cash Flow','Area · Cumulative · Bars',284],
+      ['AI Predictions','Forecast · Risk · Completion',413],
+      ['Budget Overview','Partidas · Execution %',542],
+      ['Data Entry','Tx · Payments · Budget',671],
+      ['Excel Import','Drag-drop · Preview',800],
+    ].map(([t,s,x]) => `
+      <rect x="${x}" y="24" width="120" height="26" rx="5" fill="#166534" stroke="#4ade80" stroke-width="0.8"/>
+      <text x="${x+60}" y="34" text-anchor="middle" font-size="8" font-weight="700" fill="#bbf7d0">${xe(t)}</text>
+      <text x="${x+60}" y="45" text-anchor="middle" font-size="6.5" fill="#86efac">${xe(s)}</text>`).join('')}
+
+    <!-- API router boxes -->
+    ${[
+      ['projects',26],['dashboard',140],['payment-plans',254],['reconciliation',368],
+      ['cash-flow',482],['predictions',596],['notifications',710],['clients',824],
+    ].map(([t,x]) => `
+      <rect x="${x}" y="70" width="104" height="26" rx="4" fill="#1e3a5f" stroke="#60a5fa" stroke-width="0.8"/>
+      <text x="${x+52}" y="87" text-anchor="middle" font-size="8" font-weight="700" fill="#93c5fd">${xe(t)}</text>`).join('')}
+
+    <!-- Use case boxes -->
+    ${[
+      ['GetDashboardUseCase','Aggregates KPIs',26,200],
+      ['ReconcileTransactions','Bank CSV → partida match',230,200],
+      ['CreatePaymentPlan','Schedule · 8–16 cuotas',434,200],
+      ['SendNotifications','WhatsApp + email · dedup',638,200],
+    ].map(([t,s,x,w]) => `
+      <rect x="${x}" y="126" width="${w}" height="28" rx="4" fill="#2e1065" stroke="#a78bfa" stroke-width="0.8"/>
+      <text x="${x+w/2}" y="138" text-anchor="middle" font-size="8" font-weight="700" fill="#c4b5fd">${xe(t)}</text>
+      <text x="${x+w/2}" y="149" text-anchor="middle" font-size="6.5" fill="#a78bfa">${xe(s)}</text>`).join('')}
+
+    <!-- Domain box -->
+    <rect x="14" y="182" width="330" height="80" rx="5" fill="#1a0c06" stroke="#fb923c" stroke-width="0.8"/>
+    <text x="179" y="198" text-anchor="middle" font-size="8" font-weight="700" fill="#fb923c">DOMAIN MODELS + PORTS</text>
+    ${[['Project·Unit·Budget',50],['PaymentPlan·Install.',160],['Transaction·Match',265],['CashFlowMonth',370]].map(([t,x])=>`
+      <rect x="${x}" y="203" width="108" height="20" rx="3" fill="#2d1205" stroke="#fb923c" stroke-width="0.6"/>
+      <text x="${x+54}" y="216" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fed7aa">${xe(t)}</text>`).join('')}
+    <rect x="22" y="229" width="314" height="24" rx="3" fill="#1a0c06" stroke="#fb923c" stroke-width="0.6"/>
+    <text x="179" y="245" text-anchor="middle" font-size="7" fill="#fdba74">Ports: ProjectRepo · BudgetRepo · PlanRepo · TransactionRepo · MessagingService · BankParser</text>
+
+    <!-- Agents box -->
+    <rect x="354" y="182" width="538" height="80" rx="5" fill="#1a0c06" stroke="#fb923c" stroke-width="0.8"/>
+    <text x="623" y="198" text-anchor="middle" font-size="8" font-weight="700" fill="#fb923c">AGENTIC LAYER</text>
+    ${[
+      ['Orchestrator\nState machine',362,205,82],
+      ['Reconciliation\nMatch+rules',452,205,86],
+      ['Collections\nNotification',546,205,82],
+      ['Financial\nIntelligence',636,205,78],
+      ['Escalation\nRouter +1/+6/+16',722,205,90],
+      ['Reporting\nPDF+statements',820,205,68],
+    ].map(([t,x,y,w])=>`
+      <rect x="${x}" y="${y}" width="${w}" height="50" rx="4" fill="#2d1205" stroke="#fdba74" stroke-width="0.6"/>
+      ${t.split('\n').map((ln,i)=>`<text x="${x+w/2}" y="${y+17+i*13}" text-anchor="middle" font-size="${i===0?7.5:6.5}" font-weight="${i===0?'700':'400'}" fill="${i===0?'#fed7aa':'#fb923c'}">${xe(ln)}</text>`).join('')}`).join('')}
+
+    <!-- Outbound adapter boxes -->
+    ${[
+      ['SQL Repositories\nProject·Budget·Plan·Tx',14,100],
+      ['Messaging Adapter\nSynthetic→WhatsApp',122,100],
+      ['Banking Adapter\nSynthetic→BancPopular',230,100],
+      ['Excel Parser\n61 social + 60 tourist mo.',338,100],
+      ['Report Wrappers\nPDF · Excel · email',446,100],
+    ].map(([t,x,w])=>`
+      <rect x="${x}" y="284" width="${w}" height="34" rx="4" fill="#0a2010" stroke="#4ade80" stroke-width="0.8"/>
+      ${t.split('\n').map((ln,i)=>`<text x="${x+w/2}" y="${284+14+i*12}" text-anchor="middle" font-size="${i===0?7.5:6.5}" font-weight="${i===0?'700':'400'}" fill="${i===0?'#86efac':'#4ade80'}">${xe(ln)}</text>`).join('')}`).join('')}
+
+    <!-- Infra boxes -->
+    ${[
+      ['PostgreSQL 16 + pgvector\n9 tables · SQLAlchemy async',14,170],
+      ['Config + Seed\npydantic-settings · 3 projects',192,148],
+      ['LLM Wrapper\nllm.py · Anthropic SDK',348,130],
+      ['DI Container\ndeps.py · FastAPI Depends',486,148],
+      ['Docker Compose\ndb · backend · frontend',642,152],
+    ].map(([t,x,w])=>`
+      <rect x="${x}" y="340" width="${w}" height="34" rx="4" fill="#0f172a" stroke="#94a3b8" stroke-width="0.8"/>
+      ${t.split('\n').map((ln,i)=>`<text x="${x+w/2}" y="${340+14+i*12}" text-anchor="middle" font-size="${i===0?7.5:6.5}" font-weight="${i===0?'700':'400'}" fill="${i===0?'#e2e8f0':'#94a3b8'}">${xe(ln)}</text>`).join('')}`).join('')}
+
+    <!-- Flow arrows -->
+    <line x1="450" y1="56" x2="450" y2="68" stroke="#64748b" stroke-width="1.2" marker-end="url(#arr2)"/>
+    <line x1="450" y1="112" x2="450" y2="124" stroke="#64748b" stroke-width="1.2" marker-end="url(#arr2)"/>
+    <line x1="450" y1="168" x2="450" y2="180" stroke="#64748b" stroke-width="1.2" marker-end="url(#arr2)"/>
+    <line x1="450" y1="270" x2="450" y2="282" stroke="#64748b" stroke-width="1.2" marker-end="url(#arr2)"/>
+    <line x1="450" y1="326" x2="450" y2="338" stroke="#64748b" stroke-width="1.2" marker-end="url(#arr2)"/>
+    <defs>
+      <marker id="arr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L6,3 z" fill="#64748b"/>
+      </marker>
+    </defs>
+  </svg>`;
+
+  addSvgImage(s, archSvg, 0.10, 1.18, 9.80, 4.20);
+})();
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SLIDE 5 — HUB-AND-SPOKE MULTI-AGENT MODEL
 // ══════════════════════════════════════════════════════════════════════════════
 (function slide04() {
   const s = pres.addSlide();
   s.background = { color: C.bg };
   addBranding(s, true);
   addHeader(s, 'Multi-Agent Orchestration Model', 'Specialist agents invoked as callable tools by the Orchestrator', true);
-  addFooter(s, 4, true);
+  addFooter(s, 5, true);
 
   const cx=220, cy=175, R=130;
   const spokes = CONFIG.agents.map(a => {
@@ -718,14 +841,14 @@ function addHeader(slide, title, sub, darkBg) {
 })();
 
 // ══════════════════════════════════════════════════════════════════════════════
-// SLIDE 13 — ASSUMPTIONS AND CLOSE
+// SLIDE 14 — ASSUMPTIONS AND CLOSE
 // ══════════════════════════════════════════════════════════════════════════════
 (function slide13() {
   const s = pres.addSlide();
   s.background = { color: C.bg };
   addBranding(s, true);
   addHeader(s, 'Assumptions and Decisions Needed', 'Items to confirm before MVP Solution sprint planning begins', true);
-  addFooter(s, 13, true);
+  addFooter(s, 14, true);
 
   [[C.green, 'Key Assumptions', CONFIG.slide13.assumptions, 0.28],
    [C.amber, 'Decisions Needed', CONFIG.slide13.decisions, 5.22]].forEach(([col, label, items, x]) => {
